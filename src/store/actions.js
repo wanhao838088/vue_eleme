@@ -6,7 +6,7 @@ import {
   reqUserInfo,
   reqShopGoods,
   reqShopInfo,
-  reqShopRatings
+  reqShopComments
 }
 from '../api'
 
@@ -97,7 +97,7 @@ export default {
 
   // 异步获取商家信息
   async getShopInfo({commit}) {
-    const result = await reqShopInfo()
+    const result = await reqShopInfo();
     console.log(result);
     if (result.code === 0) {
       const info = result.data
@@ -107,7 +107,7 @@ export default {
 
   // 异步获取商家评价列表
   async getShopComments({commit}) {
-    const result = await reqShopRatings()
+    const result = await reqShopComments()
     if (result.code === 0) {
       const comments = result.data
       commit(RECEIVE_COMMENTS, {comments})

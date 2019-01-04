@@ -39,8 +39,7 @@
     },
     //请求数据
     mounted(){
-      //this.getShopInfo();
-      this.$store.dispatch('getShopInfo')
+      this.getShopInfo();
     }
   }
 </script>
