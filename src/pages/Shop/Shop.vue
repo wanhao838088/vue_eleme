@@ -20,6 +20,8 @@
 </template>
 
 <script>
+  import {mapActions,mapState} from 'vuex'
+
   import ShopComments from './ShopComments/ShopComments'
   import ShopGoods from './ShopGoods/ShopGoods'
   import ShopInfo from './ShopInfo/ShopInfo'
@@ -31,6 +33,14 @@
       ShopGoods,
       ShopInfo,
       ShopHeader
+    },
+    methods:{
+      ...mapActions(['getShopInfo'])
+    },
+    //请求数据
+    mounted(){
+      //this.getShopInfo();
+      this.$store.dispatch('getShopInfo')
     }
   }
 </script>

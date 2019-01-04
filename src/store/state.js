@@ -9,5 +9,7 @@ export default {
   shops: [], //商家数组
   offset:0, //商家列表偏移量
   userInfo:{}, //用户信息
-
+  goods: [], // 商品列表
+  comments: [], // 商家评价列表
+  info: {}, // 商家信息
 }

@@ -7,7 +7,10 @@ import {
   RECEIVE_SHOPS,
   GUESS_ADDRESS,
   RECEIVE_USER_INFO,
-  RESET_USER_INFO
+  RESET_USER_INFO,
+  RECEIVE_COMMENTS,
+  RECEIVE_GOODS,
+  RECEIVE_INFO
 } from './mutation-types'
 
 export default {
@@ -33,6 +36,19 @@ export default {
   //重置用户信息
   [RESET_USER_INFO](state) {
     state.userInfo = {}
-  }
+  },
+  [RECEIVE_INFO](state, {info}) {
+    console.log(info)
+    state.info = info
+  },
+
+  [RECEIVE_COMMENTS](state, {comments}) {
+    state.comments = comments
+  },
+
+  [RECEIVE_GOODS](state, {goods}) {
+    state.goods = goods
+  },
+
 
 }

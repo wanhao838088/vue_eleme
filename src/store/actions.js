@@ -4,6 +4,9 @@ import {
   reqShops,
   guessAddress,
   reqUserInfo,
+  reqShopGoods,
+  reqShopInfo,
+  reqShopRatings
 }
 from '../api'
 
@@ -13,7 +16,10 @@ import {
   RECEIVE_SHOPS,
   GUESS_ADDRESS,
   RECEIVE_USER_INFO,
-  RESET_USER_INFO
+  RESET_USER_INFO,
+  RECEIVE_COMMENTS,
+  RECEIVE_GOODS,
+  RECEIVE_INFO
 }
 from './mutation-types'
 
@@ -51,7 +57,6 @@ export default {
     };
 
     const result = await reqShops(data)
-    console.log(result)
     commit(RECEIVE_SHOPS, {shops: result})
   },
   //猜地址
@@ -88,6 +93,34 @@ export default {
    */
   async reqLogout({commit, state}) {
     commit(RESET_USER_INFO)
+  },
+
+  // 异步获取商家信息
+  async getShopInfo({commit}) {
+    const result = await reqShopInfo()
+    console.log(result);
+    if (result.code === 0) {
+      const info = result.data
+      commit(RECEIVE_INFO, {info})
+    }
+  },
+
+  // 异步获取商家评价列表
+  async getShopComments({commit}) {
+    const result = await reqShopRatings()
+    if (result.code === 0) {
+      const comments = result.data
+      commit(RECEIVE_COMMENTS, {comments})
+    }
+  },
+
+  // 异步获取商家商品列表
+  async getShopGoods({commit}) {
+    const result = await reqShopGoods()
+    if (result.code === 0) {
+      const goods = result.data
+      commit(RECEIVE_GOODS, {goods})
+    }
   },
 }
 

@@ -8,3 +8,6 @@ export const GUESS_ADDRESS = 'guess_address' // 猜地址
 export const RECEIVE_USER_INFO = 'receive_user_info' // 接收用户信息
 export const RESET_USER_INFO = 'reset_user_info' // 重置用户信息
 
+export const RECEIVE_GOODS = 'receive_goods' // 商品信息
+export const RECEIVE_COMMENTS = 'receive_comments' // 评论信息
+export const RECEIVE_INFO = 'receive_info' // 商品信息
