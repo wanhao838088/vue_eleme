@@ -19,8 +19,7 @@
             <ul>
               <li class="food-item bottom-border-1px" v-for="(food,idx) in good.foods" :key="idx">
                 <div class="icon">
-                  <img width="57" height="57"
-                       src="http://fuss10.elemecdn.com/8/a6/453f65f16b1391942af11511b7a90jpeg.jpeg?imageView2/1/w/114/h/114">
+                  <img width="57" height="57" :src="food.icon">
                 </div>
                 <div class="content">
                   <h2 class="name">{{food.name}}</h2>
