@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="discounts-right">
-        4 个优惠
+        {{info.supports.length}} 个优惠
       </div>
     </div>
 
