@@ -46,6 +46,8 @@
 
 <script>
   import {mapState,mapActions} from 'vuex'
+  import BScroll from 'better-scroll'
+
   import CartControl from '../../../components/CartControl/CartControl'
   import ShopCart from '../../../components/ShopCart/ShopCart'
   import Food from '../../../components/Food/Food'
@@ -61,7 +63,13 @@
      * 开始获取商品列表
      */
     mounted(){
-      this.getShopGoods();
+      this.$store.dispatch('getShopGoods',()=>{
+        this.$nextTick(()=>{
+          const menuWrapper = new BScroll('.menu-wrapper');
+          const foodsWrapper = new BScroll('.foods-wrapper');
+        });
+
+      });
     }
   }
 </script>
