@@ -3,7 +3,7 @@
     <div class="goods">
       <div class="menu-wrapper" ref="menuWrapper">
         <ul>
-          <li class="menu-item" v-for="(good,index) in goods" :key="index">
+          <li class="menu-item" :class="{current:currentIndex===index}" v-for="(good,index) in goods" :key="index">
             <span class="text bottom-border-1px">
             <img class="icon" :src="good.icon" v-if="good.icon">
             {{good.name}}
@@ -13,7 +13,7 @@
       </div>
 
       <div class="foods-wrapper" ref="foodsWrapper">
-        <ul>
+        <ul ref="foodsUl">
           <li class="food-list-hook" v-for="(good,index) in goods" :key="index">
             <h1 class="title">{{good.name}}</h1>
             <ul>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-  import {mapState,mapActions} from 'vuex'
+  import {mapState, mapActions} from 'vuex'
   import BScroll from 'better-scroll'
 
   import CartControl from '../../../components/CartControl/CartControl'
@@ -53,24 +53,76 @@
   import Food from '../../../components/Food/Food'
 
   export default {
-    methods:{
-      ...mapActions(['getShopGoods'])
+    data(){
+      return{
+        scrollY:0,
+        tops: [],
+      }
     },
-    computed:{
-      ...mapState(['goods'])
+    methods: {
+      ...mapActions(['getShopGoods']),
+      /**
+       * 初始化滑动
+       */
+      _initSroll () {
+        const menuWrapper = new BScroll('.menu-wrapper', {
+          scrollY: true,
+          click: true
+        })
+
+        const foodsWrapper = new BScroll('.foods-wrapper', {
+          scrollY: true,
+          click: true,
+          probeType: 2
+        })
+        //滑动
+        foodsWrapper.on('scroll', ({x,y}) => {
+          this.scrollY = Math.abs(y);
+        })
+
+        //结束滑动
+        foodsWrapper.on('scrollEnd', ({x,y}) => {
+
+          this.scrollY = Math.abs(y);
+        })
+      },
+      _initTops(){
+        let foodLis  =  this.$refs.foodsUl.getElementsByClassName('food-list-hook');
+        let tops = [];
+        let top = 0;
+        tops.push(top);
+
+        Array.prototype.slice.call(foodLis).forEach( (food,index)=>{
+          top+=food.clientHeight;
+          tops.push(top);
+        });
+
+        this.tops = tops;
+        console.log(tops);
+      }
+    },
+    computed: {
+      ...mapState(['goods']),
+      //计算当前下标
+      currentIndex(){
+        let {scrollY,tops} = this;
+        const index = tops.findIndex( (top,index)=>{
+          return scrollY>=top && scrollY< tops[index+1];
+        })
+        return index;
+      }
     },
     /**
      * 开始获取商品列表
      */
-    mounted(){
-      this.$store.dispatch('getShopGoods',()=>{
-        this.$nextTick(()=>{
-          const menuWrapper = new BScroll('.menu-wrapper');
-          const foodsWrapper = new BScroll('.foods-wrapper');
-        });
-
-      });
-    }
+    mounted () {
+      this.$store.dispatch('getShopGoods', () => {
+        this.$nextTick(() => {
+          this._initSroll();
+          this._initTops();
+        })
+      })
+    },
   }
 </script>
 
