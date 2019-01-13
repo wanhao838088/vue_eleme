@@ -17,7 +17,8 @@
           <li class="food-list-hook" v-for="(good,index) in goods" :key="index">
             <h1 class="title">{{good.name}}</h1>
             <ul>
-              <li class="food-item bottom-border-1px" v-for="(food,idx) in good.foods" :key="idx">
+              <li class="food-item bottom-border-1px" v-for="(food,idx) in good.foods"
+                  :key="idx" @click="showFood(food)">
                 <div class="icon">
                   <img width="57" height="57" :src="food.icon">
                 </div>
@@ -41,6 +42,9 @@
         </ul>
       </div>
     </div>
+
+    <!--详情-->
+    <Food :food="food" ref="linkFood"></Food>
   </div>
 </template>
 
@@ -57,7 +61,8 @@
       return{
         scrollY:0,
         tops: [],
-        foodsWrapper:''
+        foodsWrapper:'',
+        food:{}
       }
     },
     methods: {
@@ -107,6 +112,13 @@
 
         this.tops = tops;
         console.log(tops);
+      },
+      /**
+       * 点击显示食物详情
+       */
+      showFood(food){
+        this.food = food;
+        this.$refs.linkFood.toggleShow();
       }
     },
     computed: {
@@ -132,7 +144,8 @@
       })
     },
     components:{
-      CartControl
+      CartControl,
+      Food
     }
   }
 </script>
