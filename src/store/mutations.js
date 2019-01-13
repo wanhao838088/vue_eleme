@@ -62,6 +62,8 @@ export default {
   [INCREMENT_FOOD](state, {food}) {
     if(!food.count){
       Vue.set(food,'count',1);
+      //增加一项
+      state.cartFoods.push(food);
     }else{
       food.count++;
     }
@@ -75,6 +77,10 @@ export default {
   [DECREMENT_FOOD](state, {food}) {
     if(food.count){
       food.count--;
+      //如果数量为0 从购物车里面移除
+      if (food.count === 0) {
+        state.cartFoods.splice(state.cartFoods.indexOf(food),1);
+      }
     }
   },
 }

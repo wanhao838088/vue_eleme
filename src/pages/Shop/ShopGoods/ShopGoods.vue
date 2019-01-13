@@ -41,6 +41,8 @@
           </li>
         </ul>
       </div>
+
+      <ShopCart></ShopCart>
     </div>
 
     <!--详情-->
@@ -145,7 +147,8 @@
     },
     components:{
       CartControl,
-      Food
+      Food,
+      ShopCart
     }
   }
 </script>

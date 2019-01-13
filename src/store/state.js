@@ -12,4 +12,6 @@ export default {
   goods: [], // 商品列表
   comments: [], // 商家评价列表
   info: {}, // 商家信息
+  cartFoods:[],//购物车里面的food列表
+
 }
