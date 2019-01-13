@@ -3,7 +3,7 @@
     <div class="goods">
       <div class="menu-wrapper" ref="menuWrapper">
         <ul>
-          <li class="menu-item" :class="{current:currentIndex===index}" v-for="(good,index) in goods" :key="index">
+          <li class="menu-item" @click="moveToGoods(index)" :class="{current:currentIndex===index}" v-for="(good,index) in goods" :key="index">
             <span class="text bottom-border-1px">
             <img class="icon" :src="good.icon" v-if="good.icon">
             {{good.name}}
@@ -32,7 +32,7 @@
                     <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    CartControl
+                    <CartControl :food="food"></CartControl>
                   </div>
                 </div>
               </li>
@@ -57,10 +57,18 @@
       return{
         scrollY:0,
         tops: [],
+        foodsWrapper:''
       }
     },
     methods: {
       ...mapActions(['getShopGoods']),
+      /**
+       * 点击左侧列表跳转列表
+       */
+      moveToGoods(index){
+        this.scrollY = this.tops[index];
+        this.foodsWrapper.scrollTo(0,-this.tops[index],500);
+      },
       /**
        * 初始化滑动
        */
@@ -70,18 +78,18 @@
           click: true
         })
 
-        const foodsWrapper = new BScroll('.foods-wrapper', {
+        this.foodsWrapper = new BScroll('.foods-wrapper', {
           scrollY: true,
           click: true,
           probeType: 2
         })
         //滑动
-        foodsWrapper.on('scroll', ({x,y}) => {
+        this.foodsWrapper.on('scroll', ({x,y}) => {
           this.scrollY = Math.abs(y);
         })
 
         //结束滑动
-        foodsWrapper.on('scrollEnd', ({x,y}) => {
+        this.foodsWrapper.on('scrollEnd', ({x,y}) => {
 
           this.scrollY = Math.abs(y);
         })
@@ -123,6 +131,9 @@
         })
       })
     },
+    components:{
+      CartControl
+    }
   }
 </script>
 

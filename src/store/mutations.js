@@ -1,6 +1,8 @@
 /*
 vuex 的 mutations 模块
 */
+import  Vue from 'vue'
+
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
@@ -10,7 +12,9 @@ import {
   RESET_USER_INFO,
   RECEIVE_COMMENTS,
   RECEIVE_GOODS,
-  RECEIVE_INFO
+  RECEIVE_INFO,
+  INCREMENT_FOOD,
+  DECREMENT_FOOD
 } from './mutation-types'
 
 export default {
@@ -50,5 +54,27 @@ export default {
     state.goods = goods
   },
 
+  /**
+   * 增加
+   * @param state
+   * @param comments
+   */
+  [INCREMENT_FOOD](state, {food}) {
+    if(!food.count){
+      Vue.set(food,'count',1);
+    }else{
+      food.count++;
+    }
+  },
 
+  /**
+   * 减少
+   * @param state
+   * @param goods
+   */
+  [DECREMENT_FOOD](state, {food}) {
+    if(food.count){
+      food.count--;
+    }
+  },
 }

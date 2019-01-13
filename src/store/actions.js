@@ -19,7 +19,9 @@ import {
   RESET_USER_INFO,
   RECEIVE_COMMENTS,
   RECEIVE_GOODS,
-  RECEIVE_INFO
+  RECEIVE_INFO,
+  INCREMENT_FOOD,
+  DECREMENT_FOOD
 }
 from './mutation-types'
 
@@ -124,5 +126,19 @@ export default {
       callBack && callBack();
     }
   },
+  /**
+   * 增加或者减少数量
+   * @param commit
+   * @param isAdd
+   * @param food
+   */
+  updateFoodCount({commit},{isAdd,food}){
+    if(isAdd){
+      //增加
+      commit(INCREMENT_FOOD,{food});
+    }else{
+      commit(DECREMENT_FOOD,{food});
+    }
+  }
 }
 
