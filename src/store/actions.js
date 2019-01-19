@@ -21,7 +21,8 @@ import {
   RECEIVE_GOODS,
   RECEIVE_INFO,
   INCREMENT_FOOD,
-  DECREMENT_FOOD
+  DECREMENT_FOOD,
+  CLEAR_CART
 }
 from './mutation-types'
 
@@ -139,6 +140,13 @@ export default {
     }else{
       commit(DECREMENT_FOOD,{food});
     }
+  },
+  /**
+   * 清空购物车
+   * @param commit
+   */
+  clearCart({commit}){
+    commit(CLEAR_CART);
   }
 }
 

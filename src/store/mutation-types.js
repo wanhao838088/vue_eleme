@@ -14,3 +14,5 @@ export const RECEIVE_INFO = 'receive_info' // 商品信息
 
 export const INCREMENT_FOOD = 'increment_food' // 增加
 export const DECREMENT_FOOD = 'decrement_food' // 减少
+
+export const CLEAR_CART = 'clear_cart' // 清空购物车
