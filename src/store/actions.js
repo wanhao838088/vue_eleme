@@ -109,11 +109,13 @@ export default {
   },
 
   // 异步获取商家评价列表
-  async getShopComments({commit}) {
+  async getShopComments({commit},callBack) {
     const result = await reqShopComments()
     if (result.code === 0) {
       const comments = result.data
       commit(RECEIVE_COMMENTS, {comments})
+      //回调
+      callBack && callBack();
     }
   },
 

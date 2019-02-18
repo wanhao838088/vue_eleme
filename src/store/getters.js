@@ -12,6 +12,9 @@ export default {
    */
   cartPrice(state){
     return state.cartFoods.reduce( (total,food)=> total + food.count*food.price,0);
+  },
+  positiveSize(state){
+    return state.cartFoods.reduce( (total,food)=> total + (food.rateType===0?1:0),0);
   }
 
 
